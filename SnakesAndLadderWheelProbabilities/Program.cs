@@ -8,19 +8,31 @@ namespace SnakesAndLadderWheelProbabilities
     {
         static void Main(string[] args)
         {
-            Roll(1, 6, 100000, "D6");
+            Roll(1, 6, 1000000, "D6");
         }
 
         private static void Roll(int min, int max, int gameCount, string dice)
         {
             Game game = new();
 
+            List<MetaData> rolls = new();
             List<int> rollCount = new();
             for (int i = 0; i < gameCount; i++)
-                rollCount.Add(game.Simulate(min, max).Count);
+            {
+                Console.WriteLine($"Game number {i + 1} / {gameCount}");
+                List<MetaData> result = game.Simulate(min, max);
+                rolls.AddRange(result);
+                rollCount.Add(result.Count);
+            }
 
             Console.WriteLine($"{dice} - {gameCount} games");
             PrintRollCountData(rollCount);
+
+            Console.WriteLine($"Rolls in inner ring: {rolls.Where(x => x.Ring == Rings.Inner).Count()}");
+            Console.WriteLine($"Rolls in middle ring: {rolls.Where(x => x.Ring == Rings.Middle).Count()}");
+            Console.WriteLine($"Rolls in outer ring: {rolls.Where(x => x.Ring == Rings.Outer).Count()}");
+            Console.WriteLine();
+            Console.WriteLine($"Times reversed: {rolls.Where(x => x.IsReverse).Count()}");
         }
 
         private static void PrintRollCountData(List<int> rolls)

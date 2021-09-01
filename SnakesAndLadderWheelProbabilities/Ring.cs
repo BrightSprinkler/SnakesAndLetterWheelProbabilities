@@ -40,10 +40,5 @@ namespace SnakesAndLadderWheelProbabilities
             return currentField;
         }
 
-        public override string ToString()
-        {
-            return $"{StartIndex} - {FieldCount + StartIndex - 1}";
-        }
-
     }
 }

@@ -11,7 +11,7 @@ namespace SnakesAndLadderWheelProbabilities
         public bool IsLadder { get; set; }
         public int StartField { get; set; }
         public int StopField { get; set; }
-        public string Ring { get; set; }
+        public Rings Ring { get; set; }
 
         public override string ToString()
         {

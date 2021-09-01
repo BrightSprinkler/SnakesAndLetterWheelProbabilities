@@ -4,6 +4,13 @@ using System.Linq;
 
 namespace SnakesAndLadderWheelProbabilities
 {
+    public enum Rings
+    {
+        Inner,
+        Middle,
+        Outer
+    }
+
     public class Game
     {
         public Ring InnerRing { get; private set; }
@@ -43,7 +50,13 @@ namespace SnakesAndLadderWheelProbabilities
                 metaData.StartField = currentField;
                 metaData.IsCurrentlyReverse = reverse;
                 metaData.Roll = roll;
-                metaData.Ring = CurrentRing.ToString();
+
+                if (CurrentRing == InnerRing)
+                    metaData.Ring = Rings.Inner;
+                else if (CurrentRing == OuterRing)
+                    metaData.Ring = Rings.Outer;
+                else
+                    metaData.Ring = Rings.Middle;
 
                 currentField = CurrentRing.Advance(currentField, roll, reverse);
                 metaData.StopField = currentField;
